@@ -1,0 +1,34 @@
+<!DOCTYPE  html>
+<html lang="en" ng-app="hello_model">
+<head>
+	<meta charset="UTF-8">
+	<title>Angulaar</title>
+</head>
+<body ng-controller="hello_controller" >
+
+  <p>Hello {{user.name}}</p>
+  <input type="text" ng-model="user.name" />
+  <div notice-caps-dir ng-model="user.name"></div>
+	<script src="angular.js"></script>
+	<script>
+angular.module('hello_model', [])
+.controller('hello_controller', function($scope) {
+  $scope.user = {
+    name: 'Richard'
+  };
+})
+.directive('noticeCapsDir', function () {
+  return {
+    require: 'ngModel',
+    priority: 1,
+    link: function ($scope, $element, $attrs, ngModelCtrl) {
+    
+      ngModelCtrl.$render = function() {
+      console.log($scope.user.name);}
+  
+    }
+  }
+});
+	</script>
+</body>
+</html>
